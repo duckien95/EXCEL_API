@@ -1,0 +1,11 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="VTP_CMS_API" type="NodeJSConfigurationType" factoryName="Node.js" node-parameters="--inspect" path-to-js-file="server.js" working-dir="$PROJECT_DIR$">
+    <envs>
+      <env name="DEBUG" value="VTP_CMS:*" />
+    </envs>
+    <EXTENSION ID="com.jetbrains.nodejs.run.NodeJSStartBrowserRunConfigurationExtension">
+      <browser url="http://localhost:3000/" />
+    </EXTENSION>
+    <method />
+  </configuration>
+</component>

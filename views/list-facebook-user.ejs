@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="/stylesheets/bootstrap.min.css" >
+  </head>
+  <body>
+    <h1 class="text-center mb-5"><%= title %></h1>
+   <form class="form-inline" id="searchForm" style="margin-bottom: 10px" method="POST" action="/api/user/list-facebook-user/1">
+   <!-- <form class="form-inline" id="searchForm" style="margin-bottom: 10px" method="POST" action="/api/user/facebook-search"> -->
+
+      <div class="form-group">
+         <label for="uid">UID</label>
+         <input type="text" class="form-control" id="uid" name="uid" >
+      </div>
+      <div class="form-group" style="margin-left: 10px">
+         <label for="phone">Phone</label>
+          <input type="text" class="form-control" id="phone" name="phone">
+      </div>
+      <button type="submit" style="margin-left: 10px" class="btn btn-primary">Search</button>
+   </form>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th scope="col" class="text-center">STT</th>
+                <th scope="col" class="text-center">UID</th>
+                <th scope="col" class="text-center">Phone</th>
+                <th scope="col" class="text-center">Detail</th>
+            </tr>
+            <tr>
+
+                  <th scope="col" class="text-center"></th>
+                  <th scope="col" class="text-center">
+                  </th>
+                  <th scope="col" class="text-center">
+                  </th>
+                  <th scope="col" class="text-center"></th>
+               </form>
+            </tr>
+        </thead>
+        <tbody>
+            <% for(var i = 0; i < userList.length; i++ ){ %>
+                <tr>
+                    <th scope="row" class="text-center"><%= index  + i + 1 %></th>
+                    <td class="text-center">
+                       <a href="<%= 'https://facebook.com/profile.php?id=' + userList[i].user_id %>" target="_blank">
+                          <%= userList[i].user_id %>
+                       </a>
+                    </td class="text-center">
+                    <td class="text-center"><%= userList[i].phone %></td>
+                    <td>
+                       <pre><%- JSON.stringify(userList[i].info[0], null, 4) %></pre>
+                       <!-- <ul class="list-group">
+                          <li class="list-group-item">Name: <%= userList[i].name %></li>
+                          <li class="list-group-item">FirstName: <%= userList[i].first_name %></li>
+                          <li class="list-group-item">LastName: <%= userList[i].last_name %></li>
+                          <li class="list-group-item">Email: <%= userList[i].email %></li>
+                       </ul> -->
+                    </td>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
+    <div class="paginate-list containter text-center">
+        <% if (pages > 0) { %>
+            <ul class="pagination">
+                <% if (current == 1) { %>
+                    <li class="disabled "><a class="page-link">Đầu</a></li>
+                <% } else { %>
+                    <li class="page-item"><a class="page-link" href="/api/user/list-facebook-user/1">Đầu</a></li>
+                <% } %>
+                <% var i = (Number(current) > Number(maxPage) ? Number(current) - Number(maxPage) + 1 : 1) %>
+                <% if (i !== 1) { %>
+                    <li class="disabled page-item"><a class="page-link">...</a></li>
+                <% } %>
+                <% for (; i <= (Number(current) + Number(maxPage) - 1) && i <= pages; i++) { %>
+                    <% if (i == current) { %>
+                        <li class="active page-item"><a class="page-link"><%= i %></a></li>
+                    <% } else { %>
+                        <li class="page-item"><a class="page-link" href="/api/user/list-facebook-user/<%= i %>"><%= i %></a></li>
+                    <% } %>
+                    <% if (i == Number(current) + 14 && i < pages) { %>
+                        <li class="disabled page-item"><a class="page-link">...</a></li>
+                    <% } %>
+                <% } %>
+                <% if (current == pages) { %>
+                    <li class="disabled page-item"><a class="page-link">Cuối</a></li>
+                <% } else { %>
+                    <li class="page-item"><a class="page-link" href="/api/user/list-facebook-user/<%= pages %>">Cuối</a></li>
+                <% } %>
+            </ul>
+        <% } %>
+    <div>
+  </body>
+  <script src="/javascripts/jquery-3.2.1.slim.min.js"></script>
+  <script src="/javascripts/popper.min.js"></script>
+  <script src="/javascripts/bootstrap.min.js"></script>
+  <script type="text/javascript">
+   $(function(){
+      // $('#searchForm').on('submit', function(event){
+      //   event.preventDefault();
+      //   console.log('err');
+      // });
+   });
+  </script>
+</html>
